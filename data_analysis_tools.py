@@ -45,8 +45,8 @@ def visualize_results(L,N,T,cores,model,data,y_caption_height=-0.4,analytical_re
         plt.errorbar(x = x_values,y = y_values, yerr = yerr_values, label = label_,fmt = 'o-')
 
     if analytical_result:
-        print(x_values[len(x_values)/2:])
-        print([(2/x)*(2*x-1)*(1-x) for x in x_values[len(x_values)/2:]])
+        #print(x_values[len(x_values)/2:])
+        #print([(2/x)*(2*x-1)*(1-x) for x in x_values[len(x_values)/2:]])
         plt.plot(x_values[len(x_values)/2:],[(2/x)*(2*x-1)*(1-x) for x in x_values[len(x_values)/2:]])
 
     plt.text(-0.25,y_caption_height,create_figure_caption(L,N,T,cores,model))

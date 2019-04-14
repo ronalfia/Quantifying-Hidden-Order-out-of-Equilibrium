@@ -55,7 +55,7 @@ def create_realization(L,N,T,signature,model = 'clg',observable = 'cid'):
             elif (observable == 'activity'):
                 values = [clg_activity(lattice)]
             for t in T:
-                parallel_update(lattice,t)
+                parallel_update(lattice,t,True)
                 if (observable == 'cid'):
                     values.append(cid(''.join(str(int(x)) for x in lattice)))
                 elif (observable == 'activity'):

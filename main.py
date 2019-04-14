@@ -5,9 +5,9 @@ import pandas as pd
 import numpy as np
 import time
 
-N = range(0,10001,500)
-L = 10000
-T = [150000]
+N = range(0,5001,250)
+L = 5000
+T = [100000]
 cores = 8
 model = 'clg'
 
@@ -33,13 +33,15 @@ def run_simulation(L,N,T,cores,model = 'clg'):
     #      columns, T dictates the rows (row i equals sum of first i elements in
     #      T) and each cell holds a list of the CID values for each realization
     # """
-    # create_multiple_realizations(L,N,T,cores,model,'activity')
-    #
-    # data = pd.DataFrame(data = analyze_data(N,T,cores,True))
-    #
-    # visualize_results(L,N,T,cores,model,data,True,True)
-    results = compare_dynamical_rules(50000,5000,5000)
-    print(str(results[0])+'\n'+str(results[1]))
+    create_multiple_realizations(L,N,T,cores,model,'activity')
+
+    data = pd.DataFrame(data = analyze_data(N,T,cores,True))
+
+    visualize_results(L,N,T,cores,model,data,-0.4,True,True)
+
+    #uncomment those lines to compare the dynamical rules of clg
+    #results = compare_dynamical_rules(50000,5000,5000)
+    #print(str(results[0])+'\n'+str(results[1]))
 
 
 if __name__ == "__main__":
