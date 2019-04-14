@@ -93,20 +93,24 @@ def fix_competition(active_particles,lattice):
 # randomly chosen
 # will make a total number of timesteps updates to the lattice
 #==============================================================================
-def parallel_update(lattice,timesteps=1):
+def parallel_update(lattice,timesteps=1,randomize=False):
     L = len(lattice)
     for t in range(timesteps):
         active_sites = find_active_sites(lattice)
 
-        fix_competition(active_sites,lattice)
-
         if (len(active_sites) == 0):
             break
-        for active_site in active_sites:
-
-            ## assumes competion is resolved -> displace active particles
+        if randomize:
+            active_site = random.choice(active_sites)
             lattice[active_site] -= 1
             lattice[(active_site+(find_empty_neighbor(lattice,active_site)))%L] += 1
+
+        else:
+            fix_competition(active_sites,lattice)
+            for active_site in active_sites:
+                ## assumes competion is resolved -> displace active particles
+                lattice[active_site] -= 1
+                lattice[(active_site+(find_empty_neighbor(lattice,active_site)))%L] += 1
 
 def clg_activity(lattice):
     return float(len(find_active_sites(lattice)))/len(lattice)

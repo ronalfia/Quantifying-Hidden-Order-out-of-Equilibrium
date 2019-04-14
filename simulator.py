@@ -79,6 +79,22 @@ def create_realization(L,N,T,signature,model = 'clg',observable = 'cid'):
             data.to_csv("realization{}.csv".format(signature))
     return
 
+def compare_dynamical_rules(timesteps, timestep, length):
+    activity_parallel = []
+    activity_random = []
+
+    lattice_for_parallel = create_clg_lattice(int(length*0.6),length)
+    lattice_for_random = create_clg_lattice(int(length*0.6),length)
+
+    for t in range(timesteps):
+        if (t%timestep == 0):
+            activity_parallel.append(clg_activity(lattice_for_parallel))
+            activity_random.append(clg_activity(lattice_for_random))
+        parallel_update(lattice_for_parallel,1)
+        parallel_update(lattice_for_random,1,True)
+
+    return activity_parallel,activity_random
+
 #==============================================================================
 # create_index(T)
 # receive an array of time steps T and returns an index later to be used in the
