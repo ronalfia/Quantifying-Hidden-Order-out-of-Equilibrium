@@ -93,8 +93,8 @@ def cid(configuration,model = 'clg'):
         return cid
     elif model == 'manna':
         n_p = lz_78_number_of_patterns(configuration,'manna')
-        random_reference = len(configuration)
-        return n_p * np.log2(n_p) / random_reference
+        random_reference = lz_78_number_of_patterns(np.random.shuffle(configuration))
+        return n_p * np.log2(n_p) / (random_reference*np.log2(random_reference))
         #random_reference = lz_78_number_of_patterns(create_manna_lattice(count_particles(configuration),len(configuration)),'manna')
     else:
         print("a compression scheme for {} has not been implemented".format(model))
