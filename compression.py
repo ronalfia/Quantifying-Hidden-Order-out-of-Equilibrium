@@ -93,7 +93,10 @@ def cid(configuration,model = 'clg'):
         return cid
     elif model == 'manna':
         n_p = lz_78_number_of_patterns(configuration,'manna')
-        random_reference = lz_78_number_of_patterns(np.random.shuffle(configuration))
+        random_reference = np.array(configuration)
+        np.random.shuffle(random_reference)
+        random_reference_str = ''.join(str(x) for x in random_reference)
+        random_reference = lz_78_number_of_patterns(random_reference_str)
         return n_p * np.log2(n_p) / (random_reference*np.log2(random_reference))
         #random_reference = lz_78_number_of_patterns(create_manna_lattice(count_particles(configuration),len(configuration)),'manna')
     else:

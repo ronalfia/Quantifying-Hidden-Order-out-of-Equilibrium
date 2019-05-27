@@ -30,7 +30,7 @@ def create_multiple_realizations(L,N,T,R,model = 'clg',observable = 'cid'):
         while True in [processes[batch_realization].is_alive() \
                        for batch_realization in range(cores)]:
             time.sleep(15)
-        print("finished computation of {} realizations".format((batch+8)))
+        print("finished computation of {} realizations".format((batch+cores)))
 
 #==============================================================================
 # create_realization(L,N,T)

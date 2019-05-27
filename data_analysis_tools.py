@@ -52,7 +52,10 @@ def visualize_results(L,N,T,cores,model,data,y_caption_height=-0.4,analytical_re
     plt.text(-0.25,y_caption_height,create_figure_caption(L,N,T,cores,model))
     plt.grid(axis='y',linewidth = 2)
     plt.grid(axis='x',linewidth = 1)
-    plt.title('Conserved Lattice Gas on a Ring')
+    if model == 'manna':
+        plt.title('Manna Model on a Chain')
+    else:
+        plt.title('Conserved Lattice Gas on a Chain')
     plt.legend(title = 'Time Steps', shadow=True ,fontsize='large')
     plt.xlabel('Density')
     if activity:
