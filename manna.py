@@ -100,7 +100,6 @@ def parallel_manna_update(lattice,timesteps=1, z = 0):
 
     for t in range(timesteps):
         active_sites = find_active_sites(lattice, z)
-        propagated_lattice = lattice
 
         if (len(active_sites) == 0):
             break
