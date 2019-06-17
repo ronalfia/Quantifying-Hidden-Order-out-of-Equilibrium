@@ -69,7 +69,7 @@ def lz_78_number_of_patterns(configuration,model = 'clg'):
     return len(lz_78(configuration,model))
 
 
-def cid(configuration,model = 'clg'):
+def cid(configuration, model='clg', random_shuffle=False):
     ''' computes the cid of a configuration
 
     implemented for two models namely conserved lattice gas and manna model,
@@ -85,7 +85,7 @@ def cid(configuration,model = 'clg'):
         float of the Computable Information Density for that microstate
 
     '''
-    n_p, random_reference = 0, 0.0
+    n_p, random_reference = 0.0, 0.0
     if model == 'clg':
         n_p = lz_78_number_of_patterns(configuration)
         random_reference = lz_78_number_of_patterns(''.join(str(x) for x in np.random.randint(2,size=len(configuration))))
@@ -93,12 +93,14 @@ def cid(configuration,model = 'clg'):
         return cid
     elif model == 'manna':
         n_p = lz_78_number_of_patterns(configuration,'manna')
-        random_reference = np.array(configuration)
-        np.random.shuffle(random_reference)
-        random_reference_str = ''.join(str(int(x)) for x in random_reference)
-        random_reference = lz_78_number_of_patterns(random_reference_str)
-        return n_p * np.log2(n_p) / (random_reference*np.log2(random_reference))
-        #random_reference = lz_78_number_of_patterns(create_manna_lattice(count_particles(configuration),len(configuration)),'manna')
+        if random_shuffle:
+            random_reference = np.array(configuration)
+            np.random.shuffle(random_reference)
+            random_reference_str = ''.join(str(int(x)) for x in random_reference)
+            random_reference = lz_78_number_of_patterns(random_reference_str)
+            return (n_p * np.log2(n_p)) / (random_reference*np.log2(random_reference))
+        else:
+            return (n_p * np.log2(n_p)) / len(configuration)
     else:
         print("a compression scheme for {} has not been implemented".format(model))
         return

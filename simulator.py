@@ -6,6 +6,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import multiprocessing as mp
 import time
+
+Z=2
 #==============================================================================
 # create_multiple_realizations_data(L,N,T,R)
 # this function employs parallel computation to distributelly compute multiple
@@ -68,15 +70,16 @@ def create_realization(L,N,T,signature,model = 'clg',observable = 'cid'):
             if (observable == 'cid'):
                 values = [cid(lattice,model)]
             elif (observable == 'activity'):
-                values = [manna_activity(lattice,1)]
+                values = [manna_activity(lattice, Z)]
             for t in T:
-                parallel_manna_update(lattice,t,1)
+                parallel_manna_update(lattice,t, Z)
                 if (observable == 'cid'):
-                    values.append(cid(lattice,model))
+                    values.append(cid(lattice, model))
                 elif (observable == 'activity'):
-                    values.append(manna_activity(lattice,1))
+                    values.append(manna_activity(lattice, Z))
             data[str(n)] = values
             data.to_csv("realization{}.csv".format(signature))
+        print("finished calculating density {} for signature {}".format(float(n)/L, signature))
     return
 
 def compare_dynamical_rules(timesteps, timestep, length):

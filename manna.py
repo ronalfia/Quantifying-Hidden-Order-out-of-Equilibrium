@@ -75,7 +75,7 @@ def find_active_sites(lattice,z = 0):
     return active_sites
 
 
-def parallel_manna_update(lattice,timesteps=1, z = 0):
+def parallel_manna_update(lattice,timesteps=1, z = 0, only_excess_are_active=False, randomized_non_excess=False):
     ''' updates all the lattice sites in parallel
 
     This function will update the lattice by displacing the active particles in
@@ -103,15 +103,19 @@ def parallel_manna_update(lattice,timesteps=1, z = 0):
 
         if (len(active_sites) == 0):
             break
+        non_excess_activity = only_excess_are_active
+        # if randomized_non_excess:
+        #     non_excess_activity *= np.random.randint(z)
+        z_eff = int(np.round((only_excess_are_active-randomized_non_excess*np.random.rand())*z))
         for active_site in active_sites:
-            particles_to_the_right = random.randint(0,lattice[active_site]- z)
-            particles_to_the_left = lattice[active_site] - z - particles_to_the_right
+            particles_to_the_right = random.randint(0,lattice[active_site]- z_eff)
+            particles_to_the_left = lattice[active_site] - z_eff - particles_to_the_right
 
             lattice[active_site] -= particles_to_the_right + particles_to_the_left
             lattice[(active_site+1)%L] += particles_to_the_right
             lattice[(active_site-1)%L] += particles_to_the_left
 
-def manna_activity(lattice,Z):
+def manna_activity(lattice,Z, all_particles=True):
     ''' returns the activity of the manna lattice as a fraction of its active
     sites.
 
@@ -120,4 +124,6 @@ def manna_activity(lattice,Z):
     Returns:
         the density of active sites - float
     '''
+    if all_particles:
+        return np.sum([lattice[x] for x in find_active_sites(lattice, Z)])/len(lattice)
     return float(len(find_active_sites(lattice,Z)))/len(lattice)

@@ -23,9 +23,9 @@ def create_figure_caption(L,N,T,R, model = 'clg'):
     caption += ' The different\nrealizations of each unique density enabled'
     caption += ' the computation of the standard deviation for each density. It was\n'
     caption += 'plotted as the error bar of that density.'
-    return caption
+    return ""
 
-def visualize_results(L,N,T,cores,model,data,y_caption_height=-0.4,analytical_result = False,activity = False):
+def visualize_results(L, N, T, cores, model, data, y_caption_height=-0.4, analytical_result=False, activity=False):
     average_values = data.applymap(lambda x : sum(x)/len(x))
     standard_deviation = data.applymap(lambda x : np.std(x))
 
@@ -36,8 +36,6 @@ def visualize_results(L,N,T,cores,model,data,y_caption_height=-0.4,analytical_re
     x_values = []
 
     for row_index,row in enumerate(average_values.iterrows()):
-        # if (activity & row_index == 0):
-        #     continue
         x_values = [float(x) / L for x in list(pd.Series(row[1]).index)]
         y_values = pd.Series(row[1]).values
         yerr_values = pd.Series(standard_deviation.iloc[row_index]).values
@@ -45,8 +43,6 @@ def visualize_results(L,N,T,cores,model,data,y_caption_height=-0.4,analytical_re
         plt.errorbar(x = x_values,y = y_values, yerr = yerr_values, label = label_,fmt = 'o-')
 
     if analytical_result:
-        #print(x_values[len(x_values)/2:])
-        #print([(2/x)*(2*x-1)*(1-x) for x in x_values[len(x_values)/2:]])
         plt.plot(x_values[len(x_values)/2:],[(2/x)*(2*x-1)*(1-x) for x in x_values[len(x_values)/2:]])
 
     plt.text(-0.25,y_caption_height,create_figure_caption(L,N,T,cores,model))
