@@ -1,9 +1,7 @@
-from simulator import create_multiple_realizations, compare_dynamical_rules
-from data_analysis_tools import analyze_data,visualize_results
+from main.simulator import create_multiple_realizations
+from main.data_analysis_tools import analyze_data,visualize_results
 
 import pandas as pd
-import numpy as np
-import time
 
 N = range(0,20001,1000)
 L = 10000

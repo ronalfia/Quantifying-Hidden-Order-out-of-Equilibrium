@@ -1,9 +1,8 @@
-from clg import create_clg_lattice, parallel_update, clg_activity
-from manna import create_manna_lattice, parallel_manna_update, manna_activity
-from compression import cid
+from models.clg import create_clg_lattice, parallel_update, clg_activity
+from models.manna import create_manna_lattice, parallel_manna_update, manna_activity
+from measures.compression import cid
 
 import pandas as pd
-import matplotlib.pyplot as plt
 import multiprocessing as mp
 import time
 

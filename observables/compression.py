@@ -1,5 +1,5 @@
 import numpy as np
-from manna import create_manna_lattice,count_particles
+
 
 def flatten_manna_configuration(configuration):
     ''' this function will create a lempel ziv compressible manna configuration

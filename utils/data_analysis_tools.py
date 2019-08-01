@@ -1,6 +1,6 @@
 import pandas as pd
 import os
-from simulator import create_index
+from main.simulator import create_index
 import numpy as np
 import matplotlib.pyplot as plt
 
