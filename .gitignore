@@ -1,22 +1,2 @@
-__pycache__/
-clg.pyc
-clg_backup_results/
-clg_figure.png
-compression.pyc
-data_analysis_tools.pyc
-ensemble of 32 realization.csv
-ensemble of 16 realization.csv
-ensemble of 8 realization.csv
-legacy_main_functions.txt
-manna.pyc
-manna_backup_results/
-manna_figure_activity.png
-requirements.txt
-results/
-revisualize_results.py
-simulator.pyc
-manna_figure.png
-manna_figure_shuffle_normalization.png
-manna_figure_z=2_constant_normalization.png
 
 
